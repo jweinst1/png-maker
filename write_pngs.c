@@ -8,7 +8,7 @@
 extern int write_png_rgb(const char* filename, 
 	            int width, 
 	            int height, 
-	            unsigned char *buffer, 
+	            const unsigned char *buffer, 
 	            char* title)
 {
 	int yrow;
@@ -97,7 +97,7 @@ extern int write_png_gray(const char* filename,
                     int width,
                     int height,
                     unsigned bit_depth,
-                    unsigned char *buffer,
+                    const unsigned char *buffer,
                     char* title)
 {
 
@@ -107,12 +107,20 @@ extern int write_png_gray(const char* filename,
 	png_structp png_ptr = NULL;
 	png_infop info_ptr = NULL;
 	png_bytep row = NULL;
+        unsigned row_incs = bit_depth / 8;
 
 	if(width == 0 || height == 0) {
 		fprintf(stderr, "PNG Error: Found a zero dimension. width:%d, height%d\n", width, height);
 		code = 0;
 		goto finalise;
 	}
+
+        if (bit_depth != 8 && bit_depth != 16) {
+                fprintf(stderr, "Write Error: Gray scale only supports 8 or 16 bit depth, got %u\n",
+                        bit_depth);
+                code = 0;
+                goto finalise;
+        }
 	
 	// Open file for writing (binary mode)
 	fp = fopen(filename, "wb");
@@ -167,8 +175,7 @@ extern int write_png_gray(const char* filename,
 	// Write image data
 	for (yrow=0 ; yrow<height ; yrow++) {
 		png_write_row(png_ptr, row);
-		// Advance the row ptr by 24-bit alignment
-		row += (width * 3);
+		row += width * (row_incs);
 	}
 
 	// End write operation

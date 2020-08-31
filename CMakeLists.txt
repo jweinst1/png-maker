@@ -33,4 +33,7 @@ endfunction(prepare_png)
 add_library(write_pngs STATIC write_pngs.c)
 prepare_png(write_pngs)
 
+add_executable(test_bw_img test_bw_img.c)
+target_link_libraries(test_bw_img PUBLIC write_pngs)
+
 message("Done")
