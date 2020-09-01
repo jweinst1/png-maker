@@ -14,9 +14,10 @@ static unsigned char CANVAS[CANVAS_SIZE] = {COLOR_WHITE};
 
 static void draw_ly(size_t y, unsigned char gc)
 {
-   size_t i = CANVAS_X + 1;
-   while (--i) {
-      CANVAS[i + y] = gc;
+   size_t i = y * CANVAS_Y;
+   size_t end = i + CANVAS_X;
+   while (i < end) {
+      CANVAS[i++] = gc;
    }
 }
 
