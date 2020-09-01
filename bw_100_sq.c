@@ -10,7 +10,7 @@
 #define COLOR_WHITE 255
 #define CANVAS_FILE "bw_100.png"
 
-static unsigned char CANVAS[CANVAS_SIZE] = {COLOR_WHITE};
+static unsigned char CANVAS[CANVAS_SIZE] = {COLOR_BLACK};
 
 static void draw_ly(size_t y, unsigned char gc)
 {
@@ -21,12 +21,22 @@ static void draw_ly(size_t y, unsigned char gc)
    }
 }
 
+static void draw_lx(size_t x, unsigned char gc)
+{
+   size_t i = x;
+   size_t end = CANVAS_Y * CANVAS_X + x;
+   while (i < end) {
+      CANVAS[i] = gc;
+      i += CANVAS_X;
+   }
+}
+
 int  main(int argc, char const* argv[])
 {
-    draw_ly(8, 0);
-    draw_ly(16, 100);
-    draw_ly(30, 0);
-    draw_ly(60, 50);
+    draw_ly(10, COLOR_WHITE);
+    draw_lx(10, COLOR_WHITE);
+    draw_ly(50, 127);
+    draw_lx(30, 127);
     fprintf(stdout, "Writing png to %s\n", CANVAS_FILE);
     return write_png_gray(CANVAS_FILE, 100, 100, 8, CANVAS, "bw100");
 }
