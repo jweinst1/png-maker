@@ -36,4 +36,6 @@ prepare_png(write_pngs)
 add_executable(test_bw_img test_bw_img.c)
 target_link_libraries(test_bw_img PUBLIC write_pngs)
 
-message("Done")
+add_executable(bw_100_sq bw_100_sq.c)
+target_link_libraries(bw_100_sq PUBLIC write_pngs)
+
