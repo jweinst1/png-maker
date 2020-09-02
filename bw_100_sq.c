@@ -44,6 +44,26 @@ static void draw_rg(size_t x1, size_t x2, size_t y1, size_t y2, unsigned char gc
     } 
 }
 
+static void draw_lxx(size_t y, size_t x1, size_t x2, unsigned char gc)
+{
+    size_t x = x1;
+    while (x < x2)
+    {
+        CANVAS_AT(x, y) = gc;
+        ++x;
+    }
+}
+
+static void draw_lyy(size_t x, size_t y1, size_t y2, unsigned char gc)
+{
+    size_t y = y1;
+    while (y < y2)
+    {
+        CANVAS_AT(x, y) = gc;
+        ++y;
+    }
+}
+
 int  main(int argc, char const* argv[])
 {
     draw_ly(10, COLOR_WHITE);
@@ -51,6 +71,9 @@ int  main(int argc, char const* argv[])
     draw_ly(50, 127);
     draw_lx(30, 127);
     draw_rg(10, 30, 10, 30, COLOR_WHITE);
+    draw_lxx(50, 20, 40, 150);
+    draw_lyy(15, 80, 90, 180);
+    draw_rg(20, 30, 50, 80, 170);
     fprintf(stdout, "Writing png to %s\n", CANVAS_FILE);
     return write_png_gray(CANVAS_FILE, 100, 100, 8, CANVAS, "bw100");
 }
