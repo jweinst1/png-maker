@@ -39,3 +39,5 @@ target_link_libraries(test_bw_img PUBLIC write_pngs)
 add_executable(bw_100_sq bw_100_sq.c)
 target_link_libraries(bw_100_sq PUBLIC write_pngs)
 
+add_executable(bwpix bwpix.c)
+target_link_libraries(bwpix PUBLIC write_pngs)

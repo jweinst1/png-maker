@@ -18,6 +18,11 @@ extern int write_png_gray(const char* filename,
                     const unsigned char *buffer,
                     char* title);
 
+extern int write_png_bwsq(const char* filename,
+                    int dimen,
+                    const unsigned char *buffer,
+                    char* title);
+
 #ifdef __cplusplus
 }
 #endif
