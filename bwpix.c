@@ -13,9 +13,9 @@ static unsigned char PIC_BITS[PIC_SIZE_BW] = {0};
 
 static void __write_bits_pic(void)
 {
-     size_t i = 1000;
-     for(;i < 140000;++i) {
-        PIC_BITS[i] = ((i + 76) >> 5) & 0xff;
+     size_t i = 500;
+     for(;i < 144000;++i) {
+        PIC_BITS[i] = ((9 * i + 76) >> 5) & 0xff;
      }
 }
 
