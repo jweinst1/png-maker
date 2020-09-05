@@ -197,12 +197,14 @@ extern int write_png_bwsq(const char* filename,
         
 	int yrow;
         int dim_bytes;
+        int row_inc;
 	int code = 1;
 	FILE *fp = NULL;
 	png_structp png_ptr = NULL;
 	png_infop info_ptr = NULL;
 	png_bytep row = NULL;
         dim_bytes = (dimen * dimen) / 8;
+        row_inc = dimen / 8;
 
 	
 	// Open file for writing (binary mode)
@@ -256,9 +258,9 @@ extern int write_png_bwsq(const char* filename,
 	row = (png_bytep) buffer;
 
 	// Write image data
-	for (yrow=0 ; yrow<dim_bytes ; yrow++) {
+	for (yrow=0 ; yrow<dim_bytes ; yrow+=row_inc) {
 		png_write_row(png_ptr, row);
-		++row;
+		row += row_inc;
 	}
 
 	// End write operation
